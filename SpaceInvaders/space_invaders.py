@@ -4,6 +4,7 @@ import pygame
 from SpaceInvaders.settings import Settings
 from SpaceInvaders.ship import Ship
 import SpaceInvaders.game_functions as gf
+from pygame.sprite import Group
 
 
 def run_game():
@@ -14,11 +15,14 @@ def run_game():
     pygame.display.set_caption("Space Invaders")
 
     ship = Ship(screen, si_settings)
-
+    # Group to store bullets in
+    bullets = Group()
 
     while True:
-        gf.check_events(ship)
+        gf.check_events(si_settings, screen, ship, bullets)
         ship.update()
-        gf.update_screen(si_settings, screen, ship)
+        gf.update_bullets(bullets)
+        gf.update_screen(si_settings, screen, ship, bullets)
+
 
 run_game()
